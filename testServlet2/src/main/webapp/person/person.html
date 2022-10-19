@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>person</title>
+<style type="text/css">
+div{
+	color:red;
+	font-size: 10pt;	
+	font-weight: bold;	
+}
+</style>
+</head>
+<body>
+
+<form name="personForm" method="get" action="http://localhost:8080/testServlet2/PersonServlet">
+	<table border="1" width="450px" cellpadding="5" cellspacing="0">
+			<tr> <!-- 이름 -->					
+					<th > 이름 </th>
+					 <!--  label 태그의 for="" 와 input 태그의 id="" 같아야 한다. -->				
+					<td> 
+					<input type="text" name="name" id="name" placeholder="이름 입력" >
+					<div id="nameDiv"></div>
+					</td>
+			</tr >
+			
+			<tr> <!-- 성별 -->
+				<th > 성별 </th>
+					<td>
+					<fieldset>					
+					<label>남자</label>
+					<input type="radio" name="gender"  value="0" checked >
+					<label >여자</label>
+					<input type="radio" name="gender"  value="1"  >
+					</fieldset>					
+					</td>
+			</tr >
+			
+			<tr>
+			<th>색깔</th>	<!-- 가운데 정렬, 굵게 -->	
+			<td> 
+				<select name="color" style="width:100px">
+				<optgroup label="색깔" >
+				<option value="red">빨강</option>
+				<option value="green">초록</option>
+				<option value="blue">파랑</option>
+				<option value="magenta">보라</option>
+				<option value="cyan">하늘</option>
+				</optgroup>
+				</select>
+			</td>
+		</tr>
+		
+		<tr> <!-- 취미 -->
+				<th> 취미 </th>							
+					<td> 
+					<fieldset>	
+					<label>독서</label>
+					<input type="checkbox" name="hobby" value="reading" checked >
+					<label>영화</label>
+					<input type="checkbox" name="hobby" value="movie"  >
+					<label>음악</label>
+					<input type="checkbox" name="hobby" value="music"  >
+					<label>게임</label>
+					<input type="checkbox" name="hobby" value="game"  >
+					<label>쇼핑</label>
+					<input type="checkbox" name="hobby" value="shopping"  >
+					</fieldset>
+					</td>			
+			</tr >
+			
+			<tr> <!-- 과목-->
+				<th> 과목 </th>
+					 <!--  label 태그의 for="" 와 input 태그의 id="" 같아야 한다. -->				
+					<td> 					
+					<select name="subject" multiple size="5">
+					<option value="JAVA" selected>JAVA</option>
+					<option value="Servlet" >Servlet</option>
+					<option value="JSP" >JSP</option>
+					<option value="SPRING" >SPRING</option>	
+					</select>
+					</td>
+				
+			</tr >
+			
+			<tr>
+			<th colspan="2" > 
+				<input type="button" value ="SEND" onclick="check()">  <!-- 보내기 버튼을 클릭 했을때 javascript 함수를 부른다 -->
+				<!-- button 태그는 서브밋을 실행해서 자동으로 action 실행 -->
+				<input type="reset" value ="CANCEL">
+			</th> 
+		</tr>
+</form>	
+
+
+
+
+
+<script type="text/javascript">
+function check(){
+/* 	alert("이름을 입력하세요")
+ */	
+ 	document.getElementById("nameDiv").innerText = ""; //초기화
+ 	
+	if(document.getElementById("name").value == "")
+		document.getElementById("nameDiv").innerText = "이름을 입력하세요";
+	else
+		document.personForm.submit();
+ 
+}
+</script>
+
+
+</body>
+</html>
