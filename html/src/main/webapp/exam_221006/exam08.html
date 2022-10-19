@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="result.html">
+		<fieldset>
+			<legend>이름입력하기</legend>
+				<div>
+					<label for="user_name">이름 : </label>
+					<input type="text" name="user_name" id="user_name" />			
+				</div>	
+				<div>
+					<input type="submit" value="입력완료" /> <!--  data 를 가지고 이동 -->
+					<input type="reset" value="초기화" />
+					<input type="button" value="입력완료" onclick="javascript:location.href = 'result.html'" /> <!-- on 은 ~~머머했을때, onclick 는 클릭을 했을때 -->
+					<!--  button 은 data 없이 이동만 함 -->
+					<input type="image" src="../img/ok.png" width="50" heigth="50" alt="확인" /> <!-- 자동으로 submit -->
+					<input type="image" src="../img/ok.png" width="50" heigth="50" alt="확인" onclick="return false;" />
+				</div>	
+		</fieldset>
+	</form>
+
+</body>
+</html>
+
+
+<!--  submit 을 하면 action 으로 form 태그 안에 있는!! 입력상자의 data 를 가지고 페이지 이동 -->
+<!--  button  onclick 을 하면  data 없이 이동만 한다-->
