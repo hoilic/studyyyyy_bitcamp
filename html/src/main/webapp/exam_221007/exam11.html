@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.num:link{color: black; text-decoration: none} /* <a>를 걸자마자 (맨 처음)*/
+.num:visited{color: black; text-decoration: none} /* 마우스에서 손을 떼었을때 */
+.num:hover{color: green;text-decoration: underline;} /*링크 부분에 마우스가 올라왔을 때*/
+.num:active{color: black; text-decoration: none} /* 링크부분을 마우스가 누르고 있을때 */
+</style>
+
+</head>
+<body>
+<a href="#" class="num">링크</a>
+	<div id ="content">
+	<!-- 게시판 제목 -->
+		<div id="title">
+		<h1> 공지사항 </h1>
+		<h2> 우리 사이트의 새로운 소식을 알려드립니다.</h2>
+		</div>
+		<hr/>
+		
+	<!-- 게시판 제목 -->
+	<div id="list">
+		<table border="1" width="800" align="center">
+			<!-- 표 제목 -->
+			<thead>
+				<tr>
+					<th width="50">번호</th>
+					<th >제목</th>
+					<th width="100">작성자</th>
+					<th width="70">조회수</th>
+					<th width="120">작성일</th>			
+				</tr>
+			</thead>
+			<!-- 본문 영역 (글목록) -->
+			<tbody>
+				<tr>
+					<td align="center">3</td>
+					<td><a href="#" id="subjectA">웹 표준 + 웹 접근성 실무완성 수강안내</a></td>
+					<td align="center">관리자</td>
+					<td align="center">123</td>
+					<td align="center">2014-05-01</td>
+				</tr>
+				
+				<tr>
+					<td align="center">2</td>
+					<td><a href="#" id="subjectA">HTML5+반응형웹 수강안내</a></td>
+					<td align="center">관리자</td>
+					<td align="center">123</td>
+					<td align="center">2014-05-01</td>
+				</tr>
+				<tr>
+					<td align="center">1</td>
+					<td><a href="#" id="subjectA">Javascropt+jQuery+Ajax 수강안내</a></td>
+					<td align="center">관리자</td>
+					<td align="center">123</td>
+					<td align="center">2014-05-01</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="5" align="center">
+						<a href="#" class="num">1</a>
+						<a href="#" class="num">2</a>
+						<a href="#" class="num">3</a>
+						<a href="#" class="num">4</a>
+						<a href="#" class="num">5</a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5" align="right">
+					<a href="#"> 새 글 쓰기</a>
+					</td>
+				</tr>
+			</tfoot>
+			
+			
+			
+		</table>
+	</div>
+	</div>
+
+</body>
+</html>
