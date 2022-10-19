@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>param</title>
+<style type="text/css">
+div{
+	color : red;
+	font-size : 8pt;
+	font-weight : bold;
+}
+</style>
+
+</head>
+<body>
+<form name="paramForm" method="", action="http://localhost:8080//testServlet/ParamServlet">
+	<table border="1" width="250px" cellpadding="5" cellspacing="0">
+			<tr> <!-- 이름 -->					
+					<td width="100" align="center" style = "color : red";> 이름 </td>
+					 <!--  label 태그의 for="" 와 input 태그의 id="" 같아야 한다. -->				
+					<td> 
+					<input type="text" name="name" id="name" >
+					<div id="nameDiv"></div>
+					</td>
+			</tr >
+			<tr> <!-- 나이 -->
+				<td width="100" align="center"> 나이 </td>
+					 <!--  label 태그의 for="" 와 input 태그의 id="" 같아야 한다. -->				
+					<td> 
+					<input type="text" name="age" id="age" size="5" >
+					<div id="ageDiv"></div>
+					</td>
+			</tr >
+			<tr>
+			<td colspan="2" align="center" > 
+				<input type="button" value ="보내기" onclick="javascript:check()"> <!-- 보내기 버튼을 클릭 했을때 javascript 함수를 부른다 -->
+				<input type="reset" value ="취소">
+			</td> <!-- colspan 은 병합 -->
+		</tr>
+</form>	
+
+
+<script type="text/javascript">
+function check(){
+	//	if(document.paramForm.name.value == "") alert("이름을 입력하세요");
+	//	else if(document.paramForm.age.value == "") alert("나이를 입력하세요");
+
+	// if(document.getElementById("name").value == "") alert("이름을 입력하세요");
+	// else if(document.getElementById("age").value == "") alert("나이를 입력하세요");
+	
+	document.getElementById("nameDiv").innerText = ""; //초기화
+	document.getElementById("ageDiv").innerText = ""; //초기화
+	if(document.getElementById("age").value == "")
+		document.getElementById("ageDiv").innerText = "이름을 입력하세요";
+	else if(document.getElementById("name").value == "")
+		document.getElementById("nameDiv").innerText = "나이를 입력하세요";
+	else
+		document.paramForm.submit();
+	
+}
+</script>
+
+</body>
+</html>
