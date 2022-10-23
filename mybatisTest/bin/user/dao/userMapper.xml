@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DTD -->
+
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="userSQL"> <!-- namespace 는 구분자! 이름을 주어서 구분 하려고 -->
+ 	<insert id="write" parameterType="user"> <!--  parameterType 는 데이터를 담아야 할때 필요하다.-->
+ 		insert into usertable values(#{name}, #{id}, #{pwd})
+ 	</insert>
+ 	
+ 	<select id="getList" resultType="user"> <!--  id 는 DAO 메소드 이름과 통일 시키는게 좋다-->
+ 		select * from usertable
+ 	</select> 
+ 	
+ 	 <select id="userupdate" parameterType="java.lang.String" resultType="user"> <!--  id 는 DAO 메소드 이름과 통일 시키는게 좋다-->
+ 		select * from usertable where id=#{id}
+ 		<!-- id=#{id} 가 id=?  #{} 가 바로 ? 이다-->
+ 	</select> 
+ 	
+ 	<update id="update2" parameterType="java.util.Map">
+ 		update usertable set name=#{name}, pwd=#{pwd} where id=#{id}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="java.lang.String" >
+ 		delete from usertable where id=#{id}
+ 	</delete>
+ 	
+ 	 <select id="search" resultType="user"> <!--  id 는 DAO 메소드 이름과 통일 시키는게 좋다-->
+ 		select * from  usertable where ${so} like '%'||#{search}||'%'
+ 		<!-- id=#{id} 가 id=?  #{} 가 바로 ? 이다 ||은 연결 연산자-->
+ 	</select> 
+
+ 
+ </mapper>
