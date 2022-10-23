@@ -1026,7 +1026,294 @@ select * from emp;
 commit;
 
 
-
-
-
 --221020
+--7일차
+select * from employees;
+
+--ex1) 사원테이블에서 부서가 90인 사원들을 v_view1으로 뷰 테이블을 만드시오
+-- (사원ID, 사원이름, 급여, 부서ID만 추가)
+create or replace view v_view1
+as select employee_id, last_name, salary, department_id 
+from employees
+where department_id=90;
+
+select * from v_view1;
+
+--[문제1] 사원테이블에서 급여가 5000 이상 10000 이하인 사원들만 v_view2으로 뷰를 만드시오. 
+--(사원ID, 사원이름, 급여, 부서ID)
+
+create or replace view v_view2
+as select employee_id, last_name, salary, department_id 
+from employees
+where salary>=5000 and salary<=10000 order by 3;
+
+-- ex2) v_view2 테이블에서 103사원의 급여를 9000.00에서 12000.00으로 수정하시오
+select * from v_view2;
+
+update v_view2 set salary=12000 where employee_id=103;
+--(v_view2의 내용을 바꾸면 원본도 같이 변경된다. v_view2의 103사원의 급여를 바꾸면 조건에 맞지 않아서 빠져나간 것을 확인할 수 있다.)
+
+
+select * from v_view2; -- 103사원이 빠졌음 (범위를 벗어남)
+select * from employees where employee_id=103;
+-- 원본인 employees 의 내용도 바뀌었다
+
+-- 원본을 다시 9000으로 변경하면 v_view2의 내용도 바뀌어서 103사원이 다시 들어온 것을 확인 할 수 있다
+update employees set salary=9000 where employee_id=103;
+
+select * from employees where employee_id=103;
+select * from v_view2; -- 103사원이 조건에 맞아서 다시 들어왔다
+
+--[문제2] 사원테이블과 부서테이블에서 사원번호, 사원명, 부서명을 v_view3로 뷰 테이블을 만드시오
+--조건1) 부서가 10, 90인 사원만 표시하시오
+--조건2) 타이틀은 사원번호, 사원명, 부서명으로 출력하시오
+--조건3) 사원번호로 오름차순 정렬하시오
+
+create or replace view v_view3(사원번호, 사원명, 부서명, 부서ID)
+as select employee_id, last_name, department_name, department_id
+from employees
+join departments using(department_id)
+where department_id='10' or department_id='90' order by 1;
+-- where department_id in(10,90)order by 1 asc;  asc 는 생략 가능
+
+
+
+select * from v_view3;
+
+--[문제3] 부서ID가 10, 90번 부서인 모든 사원들의 부서위치를 표시하시오
+--조건1) v_view4로 뷰 테이블을 만드시오
+--조건2) 타이틀을 사원번호, 사원명, 급여, 입사일, 부서명, 부서위치(city)로 표시하시오
+--조건3) 사원번호 순으로 오름차순 정렬하시오
+--조건4) 급여는 백 단위 절삭하고, 3자리 마다 콤마와 '원'을 표시하시오
+--조건5) 입사일은 '2004년 10월 02일' 형식으로 표시하시오
+
+create or replace view v_view4(사원번호, 이름, 급여, 입사일, 부서명, 부서위치)
+as select employee_id , last_name , 
+        to_char(trunc(salary, -3), '999,999' )||'원' ,
+        to_char(hire_date, 'YYYY"년" MM"월" DD"일"') , 
+        department_name , city 
+from employees
+join departments using(department_id)
+join locations using(location_id)
+where department_id in (10, 90) order by 1;
+-- where department_id='10' or department_id='90' order by 1;
+
+-- to_char 를 사용하면 컬럼 명이 바뀜으로 별칭을 꼭 작성해야한다!!!
+
+select * from v_view4;
+
+
+
+--ex3) 뷰에 제약조건달기
+--사원테이블에서 업무ID 'IT_PROG'인 사원들의 사원번호, 이름, 업무ID만 v_view5 뷰 테이블을 작성하시오. 
+--단 수정 불가의 제약조건을 추가 하시오
+
+create or replace view v_view5
+as select employee_id, last_name, job_id
+from employees
+where job_id='IT_PROG'
+with read only;
+
+select * from v_view5;
+
+--ex4) 뷰에 제약조건 달기
+--사원테이블에서 업무ID 'IT_PROG'인 사원들의 사원번호, 이름, 이메일, 입사일, 업무ID만 v_view6 뷰테이블을 작성하시오, 
+--단 업무ID가 'IT_PROG'인 사원들만 추가, 수정할 수 있는 제약조건을 추가하시오
+
+create or replace view v_view6
+as select employee_id, last_name, email, hire_date, job_id
+from employees
+where job_id='IT_PROG'
+with check option;
+
+select * from v_view6;
+
+insert into v_view6(employee_id, last_name, email, hire_date, job_id)
+values(500,'kim','candy','2004-01-01','Sales');
+→ 에러:with check option제약조건에 위배
+
+update v_view6 set job_id='Sales' where employee_id=103;
+→ 에러:with check option제약조건에 위배
+
+insert into v_view6(employee_id, last_name, email, hire_date, job_id)
+values(500,'kim','candy','2004-01-01','IT_PROG');
+
+select * from v_view6;
+
+
+-- 문제5
+create table bookshop(
+isbn varchar2(10) constraint PISBN primary key,
+title varchar2(50) constraint CTIT not null,
+author varchar2(50), -- 저자
+price number, -- 금액
+company varchar2(30));
+
+select * from bookshop;
+
+select constraint_name, constraint_type
+from user_constraints
+where table_name='BOOKSHOP';
+
+insert into bookshop(isbn, title, author, price, company) values('is001', '자바3일완성', '김자바', 25000, '야메루출판사');
+insert into bookshop(isbn, title, author, price, company) values('pa002', 'JSP달인되기', '이달인', 28000, '공갈닷컴');
+insert into bookshop(isbn, title, author, price, company) values('or003', '오라클무작정따라하기', '박따라', '23500', '야메루출판사');
+
+commit;
+
+create table bookorder(
+idx number primary key, -- 일련번호
+isbn varchar2(10), constraint FKISBN foreign key(isbn) references bookshop,-- bookshop의 isbn의 자식키
+qty number); 
+
+--create table bookorder(
+--idx number primary key, -- 일련번호
+--isbn varchar2(10) constraint FKISBN references bookshop(isbn),-- bookshop의 isbn의 자식키
+--qty number); 
+
+select constraint_name, constraint_type
+from user_constraints
+where table_name='BOOKORDER';
+
+create sequence idx_seq increment by 1 start with 1 nocycle nocache;
+-- create sequence idx_seq  nocycle nocache; 위에꺼와 같은 내용
+
+
+insert into bookorder(idx, isbn, qty) values(1, 'is001', 2);
+insert into bookorder(idx, isbn, qty) values(2, 'or003', 3);
+insert into bookorder(idx, isbn, qty) values(3, 'pa002', 5);
+insert into bookorder(idx, isbn, qty) values(4, 'is001', 3);
+insert into bookorder(idx, isbn, qty) values(5, 'or003', 10);
+commit;
+
+select * from bookorder;
+
+create or replace view bs_view (책제목, 저자, 총판매금액)
+as select title, 
+        author, 
+        to_char(sum(qty*price), '99,999,999')
+from bookshop
+join bookorder using(isbn) group by(title, author)
+with read only;
+
+select * from bs_view;
+
+
+
+
+
+
+
+--221021
+--7일차
+
+--ex5) 뷰 - 인라인
+--사원테이블을 가지고 부서별 평균급여를 뷰(v_view7)로 작성하시오
+--조건1) 반올림해서 100단위까지 구하시오
+--조건2) 타이틀은 부서ID, 부서평균
+--조건3) 부서별로 오름차순 정렬 하시오
+--조건4) 부서ID가 없는 경우 5000으로 표시하시오
+
+create or replace view v_view7("부서ID", "부서평균")
+as select nvl(department_id, 5000),
+            round( avg(salary), -3)
+    from employees
+    group by department_id
+    order by department_id asc;
+    
+select * from v_view7;
+
+select 부서ID, 부서평균
+from (select nvl(department_id, 5000) "부서ID", 
+            round( avg(salary), -3) "부서평균"
+ from employees
+ group by department_id
+ order by department_id asc);
+
+--[문제5]
+--5-1. 부서별 최대급여를 받는 사원의 부서명, 최대급여를 출력하시오 
+--5-2. 1번 문제에 최대급여를 받는 사원의 이름도 구하시오
+
+select department_name as 부서명, max(salary) as 최대급여
+from employees
+join departments using(department_id)
+group by department_name;
+
+----------------------------------------------------------
+select 이름, 부서명, 최대급여
+from (select department_name as 부서명, 
+                max(salary) as 최대급여
+    from employees
+    join departments using(department_id)
+    group by department_name);
+    
+----------------------------------------------------------
+select 이름, 부서명, 최대급여
+from (select last_name as 이름, 
+            department_name as 부서명, 
+            salary as 최대급여
+        from employees
+        join departments using(department_id)
+        where (department_name, salary) in ( select department_name, max(salary) 
+                                            from employees
+                                            join departments using(department_id)
+                                            group by department_name)
+        );                             
+        -- 복습 꼭 하세요!
+
+
+--ex6) Top N분석
+--급여를 가장 많이 받는 사원 3명의 이름, 급여를 표시 하시오
+select rownum, last_name, salary
+from (select last_name, nvl(salary,0) as salary from employees order by 2 desc) --nvl 은 비어있는 값 
+where rownum<=3; --  where rownum =3 와 같이 특정행만 꺼내오지 못함!
+
+--ex7) 최고급여를 받는 사원 1명을 구하시오
+select rownum, last_name, salary
+from (select last_name, nvl(salary,0)as salary from employees order by 2 desc)
+where rownum=1; ← rownum=2는 error (특정 행은 사용할 수 없음)
+
+
+ex8) 급여의 순위를 내림차순 정렬 했을 때, 3개씩 묶어서 2번째 그룹을 출력하시오
+select * from
+(select rownum, ceil(rownum/3) as page, tt.*from
+            (select last_name, nvl(salary,0)as salary from employees order by salary desc)tt)
+        where page=2;
+        
+select * from
+(select rownum rn, tt.*from
+        (select last_name, nvl(salary,0)as salary from employees order by salary desc)tt)
+    where rn>=4 and rn<=6;
+
+--[문제6] 사원들의 연봉을 구한 후 최하위 연봉자 5명을 추출하시오
+--조건1) 연봉 = 급여*12+(급여*12*커미션)
+--조건2) 타이틀은 사원이름, 부서명, 연봉
+--조건3) 연봉은 ￦25,000 형식으로 하시오
+
+select commission_pct from employees; -- 커미션에 널 값이 있는지 확인해보자!
+
+select rownum, 사원이름, 부서명, 연봉
+from (select last_name as 사원이름,
+               department_name as 부서명,
+                to_char(salary*12+(salary*12*nvl(commission_pct,0)),'L999,999') as 연봉
+        from employees
+        join departments using(department_id)
+        order by 3)
+where rownum <=5;
+
+select rownum, last_name as 사원이름, 
+                department_name as 부서명, 
+                to_char(salary, 'L999,999') as 연봉
+from (select last_name,
+            department_name,
+            salary*12+(salary*12*nvl(commission_pct,0)) as salary    
+        from employees
+        join departments using(department_id)
+        order by 3)
+where rownum <=5;
+
+grant all on employees to c##java; -- c##jav 가 hr employee 로 들어올수 있는 권한을 부여한다!
+
+
+
+select * from board;

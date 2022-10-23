@@ -198,3 +198,58 @@ TRUNCATE table guestbook; --비우기
 select * from guestbook;
 delete from guestbook where seq=12;
 commit;
+
+--221019
+-- eclipse 연동
+
+create table usertable(
+name varchar2(30) not null,
+id varchar2(30) primary key,
+pwd varchar2(30) not null);
+
+select * from usertable;
+
+
+--221020
+--UserMAin 과 연동
+
+select * from usertable;
+
+--221021
+create synonym hr_emp for hr.employees; -- synonym 을 생설할 수 있는 권한은 관리자 계정에서 권한을 부여해야한다.
+
+select * from user_synonyms;
+
+select * from hr.employees;
+select * from hr_emp; --synonym 이용
+
+select * from member;
+
+
+--221022 주말숙제
+CREATE TABLE board(
+     seq NUMBER NOT NULL,               -- 글번호 (시퀀스 객체 이용)
+     id VARCHAR2(20) NOT NULL,           -- 아이디
+     name VARCHAR2(40) NOT NULL,       -- 이름
+     email VARCHAR2(40),                  -- 이메일
+     subject VARCHAR2(255) NOT NULL,    -- 제목
+     content VARCHAR2(4000) NOT NULL,   -- 내용 
+
+     ref NUMBER NOT NULL,                 -- 그룹번호 (글번호와 똑같은 값을 넣는다)
+     lev NUMBER DEFAULT 0 NOT NULL,     -- 단계
+     step NUMBER DEFAULT 0 NOT NULL,    -- 글순서
+     pseq NUMBER DEFAULT 0 NOT NULL,    -- 원글번호
+     reply NUMBER DEFAULT 0 NOT NULL,   -- 답변수
+
+     hit NUMBER DEFAULT 0,              -- 조회수
+     logtime DATE DEFAULT SYSDATE
+ );
+
+CREATE SEQUENCE seq_board  NOCACHE NOCYCLE;
+
+select * from board;
+select * from member;
+
+delete board where seq = 1;
+commit;
+
