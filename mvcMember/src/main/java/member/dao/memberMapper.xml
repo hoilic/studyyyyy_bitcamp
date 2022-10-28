@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DTD -->
+
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="memberSQL"> <!-- namespace 는 구분자! 이름을 주어서 구분 하려고 -->
+	<!-- 회원가입 -->
+	<insert id="memberWrite" parameterType="member"> 
+	<!-- parameterType 데이터를 받아온다 -->
+		insert into member values(#{name}
+								, #{id}
+								, #{pwd}
+								, #{gender}
+								, #{email1}
+								, #{email2}
+								, #{tel1}
+								, #{tel2}
+								, #{tel3}
+								, #{zipcode}
+								, #{addr1}
+								, #{addr2}
+								, sysdate)		
+	</insert>
+	
+	<!-- 아이디중복체크 -->
+	<select id="isExistId" parameterType="String" resultType="member">
+	<!-- parameterType 데이터를 받아온다 resultType은 데이터를 뱉어낸다.-->
+	<!-- 검색하기 위해 String 형태의 아이디를 넣어준다 그리고 아이디가 있나 없나 중복체크하고 memberDTO로 중복체크한 내용(SQL조건문의 결과 즉 selectOne메소드의 결과 )을 넘겨준다-->
+		select * from member where id=#{id}
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="memberLogin" parameterType="java.util.Map" resultType="member">
+		select * from member where id=#{id} and pwd=#{pwd} 
+		<!-- 로그인 할때는 아이디랑 비번만 넣으닌까 -->
+	</select>
+ 	
+ </mapper>
