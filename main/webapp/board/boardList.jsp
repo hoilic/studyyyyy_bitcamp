@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,28 +52,44 @@ a.subjectA:active {color: black; text-decoration :none;}
 <title>boardList</title>
 </head>
 <body>
-<input type="hidden" id="pg" value="${pg}">
- 
-	<table id="boardListTable" border="1" width="700px" cellpadding="5" frame="hsides" rules="rows">
+
+<c:if test=${requestScope.list != null}>
+	<table border="1" width="700px" cellpadding="5" frame="hsides" rules="rows">
+
+	
 		<tr height="50px" > <!-- 제목 -->
 			<th >글번호</th>	<!-- 가운데 정렬, 굵게 -->	
 			<th width="300px">제목</th>	<!-- 가운데 정렬, 굵게 -->	
 			<th >작성자</th>	<!-- 가운데 정렬, 굵게 -->	
 			<th >조회수</th>	<!-- 가운데 정렬, 굵게 -->	
 			<th >작성일</th>	<!-- 가운데 정렬, 굵게 -->	
-		</tr >	
+		</tr >
 		
-		<!-- 동적처리 -->
+	
+	<c:forEacn var="boardDTO" items="${list}">
+		<tr height="50px"> 
+			<td align="center">${boardDTO.seq}</td>	<!-- 가운데 정렬, 굵게 -->	
+			<td style="padding:10px">
+				<a class="subjectA"  onclick="isLogin('${id }', ${boardDTO.seq}, ${pg })">${boardDTO.subject}</a>
+													<!-- 밖에 "" 이 있으닌까 ''를 친거고, id의 값이 문자열이닌까 ''를 표시, getSeq는 숫자이므로 ''안해도 됩니다.  -->
+			</td>	<!-- 가운데 정렬, 굵게 -->	
+			<td align="center">${boardDTO.id}</td>	<!-- 가운데 정렬, 굵게 -->	
+			<td align="center">${boardDTO.hit}</td>	<!-- 가운데 정렬, 굵게 -->	
+			<td align="center"><fmt:formatDate value="${boardDTO.logtime}" pattern="yyyy.MM.dd"/></td>
+				
+			
+		</tr >		
+
+		</c:forEacn>
 		
-	</table>
+		</table>
 		
-		<div style="display: inline-block">
-		<div id="pagingDiv" ></div>
-		</div>
+		
+		<div id="pagingDiv" ><input type="button" value="메인화면" onclick="location.href='../index.jsp'">${boardPaging.pagintHTML}</div>
 		<!-- boardPaging 에 만든 pagingHTML 을 lombok 을 써서 만들었으므로
 		getPagingHTML() 으로 데이터를 담아온다.-->
 
-
+</c:if>
 
  
  <script type="text/javascript">
@@ -91,10 +106,7 @@ a.subjectA:active {color: black; text-decoration :none;}
 	 /* else { 
 		location.href = "boardView.jsp?seq="+seq+"&pg="+pg;	 */	
  	}
- 
+ }
  </script>
- 
- <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script> <!-- CDN방식 -->
-<script type="text/javascript" src="../js/board.js"></script>
 </body>
 </html>

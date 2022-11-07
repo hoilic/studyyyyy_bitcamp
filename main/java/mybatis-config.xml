@@ -10,7 +10,6 @@
  	<properties resource="db.properties"></properties>
  	
  	<typeAliases>
- 		<typeAlias type="member.bean.MemberDTO" alias="member"/>
  		<typeAlias type="board.bean.BoardDTO" alias="board"/> <!-- Mapper파일 type 주소를 간단하게 바꾸기 위한 작업 -->
  	</typeAliases> 	
  	
@@ -27,7 +26,6 @@
 	</environments>
 	
 	 <mappers>
- 		<mapper resource="member/dao/memberMapper.xml" />
  		<mapper resource="board/dao/boardMapper.xml" />
  		
  		<!-- "user/dao/userMapper.xml" .아니고 /를 써야한다 중요! -->

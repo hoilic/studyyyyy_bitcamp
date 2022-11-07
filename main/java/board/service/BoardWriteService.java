@@ -20,9 +20,9 @@ public class BoardWriteService implements CommandProcess {
 		String content = request.getParameter("content");
 		
 		HttpSession session = request.getSession(); // 세션값을 가져오기 위한 작업
-		String name = (String) session.getAttribute("memName");
-		String id = (String) session.getAttribute("memId");
-		String email = (String) session.getAttribute("memEmail");
+		String name = "hong";
+		String id = "홍길동";
+		String email = "hong@naver.com";
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);

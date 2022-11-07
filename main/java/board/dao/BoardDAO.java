@@ -65,40 +65,8 @@ public class BoardDAO {
 	public int getTotalA() {
 		SqlSession sqlSession = sqlSessionFactory.openSession();//생성
 		int totalA = sqlSession.selectOne("boardSQL.getTotalA");
-		sqlSession.close();	
+		
 		return totalA;
-	}
-
-	public BoardDTO getBoard(int seq) {
-		SqlSession sqlSession = sqlSessionFactory.openSession();//생성
-		BoardDTO boardDTO = sqlSession.selectOne("boardSQL.getBoard", seq);
-		sqlSession.close();	
-		return boardDTO;
-	}
-
-	public void setHit(int seq) {
-		SqlSession sqlSession = sqlSessionFactory.openSession();//생성
-		sqlSession.update("boardSQL.setHit", seq);
-		sqlSession.commit(); //commit 은 insert, update, delete만 쓴다
-		sqlSession.close();	
-		
-	}
-
-	public void boardDelete(int seq) {
-		SqlSession sqlSession = sqlSessionFactory.openSession();//생성
-		sqlSession.delete("boardSQL.boardDelete", seq);
-		sqlSession.commit(); //commit 은 insert, update, delete만 쓴다
-		sqlSession.close();	
-		
-	}
-
-	public void boardUpdate(Map<String, String> map) {
-		SqlSession sqlSession = sqlSessionFactory.openSession();//생성
-		sqlSession.update("boardSQL.boardUpdate", map);
-		sqlSession.commit(); //commit 은 insert, update, delete만 쓴다
-		sqlSession.close();	
-	
-		
 	}
 
 	

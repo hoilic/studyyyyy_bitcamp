@@ -38,24 +38,7 @@
 	select count (*) from board 
 	</select>
 	
-	<select id="getBoard" parameterType="int" resultType="board">
-		select * from board where seq=#{seq}
-	</select>
-	
-	<update id="setHit" parameterType="int" >
-		update board set hit=hit+1 where seq=#{seq}
-	</update>
-	
-	<delete id="boardDelete" parameterType="int" >
-		delete board where seq=#{seq}
-	</delete>
 
-	<update id="boardUpdate" parameterType="java.util.Map" >
-		update board set subject=#{subject}
-						, content=#{content}
-						, logtime=sysdate where seq=#{seq}
-	</update>
-	
 </mapper>
 
 

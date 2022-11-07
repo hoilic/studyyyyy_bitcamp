@@ -9,8 +9,8 @@ public class BoardWriteFormService implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		request.setAttribute("display", "/board/boardWriteForm.jsp");
-		return  "/index.jsp";
+		// TODO Auto-generated method stub
+		return "/board/boardWriteForm.jsp";
 	}
 
 }
