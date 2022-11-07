@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<script type="text/javascript">
+const a = 100 // const 는 java 의 final 붙이는거와 같다. 변경할수 없는 값 
+//a = 250 -- 재할당이 안된다.
+
+console.log(a)//100
+{	const a = 200
+	console.log(a)//200
+	{
+	const a = 300
+		console.log(a)//300
+		{
+		const a = 400
+			console.log(a)//400			
+		}
+		console.log(a)//300
+	}
+	console.log(a)//200
+}
+console.log(a)//100
+</script>
+
+</body>
+</html>
+<!-- const는 재할당은 안되지만 let처럼 구역단위이다. -->

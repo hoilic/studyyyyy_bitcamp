@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+document.write("*** eval 내장함수 ***<br>");
+var str = "100 + 1";
+document.write(str + "<br>");
+
+var result = eval(str);
+document.write(result + "<br><br>");
+
+
+document.write("*** Number, parseInt 내장함수 ***<br>");
+var value1 = "100";
+var num1 = Number(value1);
+var num2 = parseInt(value1);
+
+var r1 = value1 + 1; //문자 + 숫자 --> 문자 +문자 --> 결합
+var r2 = num1 + 1; // 숫자 + 숫자 --> 덧셈
+var r3 = num2 + 1;
+
+document.write("r1 = " + r1 + "<br>")
+document.write("r2 = " + r2 + "<br>")
+document.write("r3 = " + r3 + "<br>")
+
+var value2 = "100.6";
+var num3 = Number(value2); //문자열 그대로 100.6 이라는 실수값을 리턴한다.
+var num4 = parseInt(value2); // 소수점을 다 짤라라(내림처리) 100
+var num5 = parseFloat(value2); // 실수형으로 나와라 100.6
+
+var r4 = num3 +1;
+var r5 = num4 +1;
+var r6 = num5 +1;
+document.write("<br>");
+document.write("r4 = "+ r4 + "<br>"); //101.6
+document.write("r5 = "+ r5 + "<br>"); // 101
+document.write("r6 = "+ r6 + "<br>"); // 101.6
+
+</script>
+</body>
+</html>
+
+<!-- 
+내장함수
+1. eval(문자열) : 문자열을 수식으로 변환
+2. Number(문자열) : 문자열을 숫자로 변환
+3. parseInt(문자열) : 문자열을 정수로 변환
+4. isNaN(문자열) : 문자열이 숫자형식이 아니면 true, 숫자형식이면 false -> Not-A-Number(숫자가 아님)
+5. alert(문자열) : 문자열을 대화상자로 출력
+6. confirm(문자열) : 문자열을 확인/취소 대화상자로 출력
+7. prompt(문자열) : 문자열이 제목으로 표시되는, 값을 입력받기 위한 대화상자 호출
+ -->

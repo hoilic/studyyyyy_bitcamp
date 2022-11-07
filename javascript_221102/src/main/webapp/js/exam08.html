@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+
+	let sum = 0;
+	for(let i =1; i<=10; i++){ //i는 지역변수
+		document.write("i = " + i + "<br/>");
+		sum += i;
+	}
+	
+	//document.write("i = " + i + "<br/>"); // i는 지역변수, 화면에는 안보인다(F12에서 error - i is not defined)
+											//var 로 고치면 나온다.
+	document.write("<h1>1부터 10까지의 합은 " + sum + "입니다.</h1>");
+</script>
+</body>
+</html>
