@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+<h1 id="hello"></h1>
+<p id="text">안녕하세요 제이쿼리!!</p>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+$(function(){
+	var h1 = $('#hello');
+	h1.html('Hello jQuery!!');
+	h1.css('color', 'red');
+	
+	//$('#hello').html('<font color="red">Hello jQuery!!</font>');
+	
+	alert($('#text').text()); //p안에 있는 내용 꺼내옴
+	$(('#text').text()) + $(('#text').text());
+
+	
+});
+</script>
+</body>
+</html>

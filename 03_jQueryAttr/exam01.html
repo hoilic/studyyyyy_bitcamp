@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<p><a href="#">Link</a></p>
+<!-- "#" 은 이동하지말고 현재페이지에 있어라 -->
+
+<input type="checkbox" name="" id="check" checked="checked"> 체크박스
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+document.write('<br>');
+document.write('attr = ' + $('a').attr('href'));
+document.write('<br><br>');
+document.write('prop = ' + $('a').prop('href'));
+document.write('<hr>');
+
+var check = $('#check'); /* input 태그 네임 가져와라 */
+//var check = document.querySelector('#check');
+document.write('attr = ' + check.attr('checked'));
+document.write('<br>');
+document.write('prop = ' + check.prop('checked'));
+
+/*
+ .hasAttribute(name) -> 속성의 존재 확인
+ .getAttribute(name) -> 속성값을 가져온다
+ .setAttribute(name, value) -> 속성값을 변경
+ .removeAttribute(name) -> 속성값을 제거
+ */
+</script>
+</body>
+</html>
+
+<!-- 
+attr() / prop()
+jQuery 1.6버전 이전에는 attr() 만으로 가능하던 처리를 1.6 업데이트로 attr()과 prop() 으로 나뉘어졌다.
+이전에는 attr() 하나로 많은 것을 처리하려다 보니 버그 및 문제가 발생하여 업데이트를 통해 불완전을 해소했다고 한다.
+
+1. attr()
+- HTML에 작성된 속성값을 문자열로 받아온다
+
+[형식]
+var 변수명 = $("요소").attr("속성이름");
+$("요소").attr("속성이름", "값");
+
+$("요소").attr({
+      "속성1이름": "값",
+      "속성2이름": "값",
+      "속성3이름": "값"
+});
+
+2. prop()
+- 지정한 선택자를 가진 첫번째 요소의 속성값을 가져오거나 속성값을 추가한다
+- 자바스크립트의 프로퍼티를 가져온다
+  주의할 점은 HTML 입장에서의 속성(attribute)이 아닌 JavaScript 입장에서의 속성(property)이라는 것이다
+- 자바스크립트의 프로퍼티 값이 넘어오기 때문에 boolean, date, function 등도 가져올 수 있다
+
+[형식]
+.prop("속성이름")        → 속성값을 가져온다
+.prop("속성이름", "값")   → 속성값을 추가한다
+ -->

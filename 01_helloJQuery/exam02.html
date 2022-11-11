@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1 id="hello"></h1>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+function hello($){
+	var h1 = $('#hello');
+	h1.html('Hello jQuery');
+}
+
+jQuery(hello);
+//jQuery() = window.onload 와 같은 효과
+</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/event.css">
+</head>
+<body>
+<body>
+<h1>마우스 이벤트 확인하기</h1>
+<div id="input">
+	Click or Double Click Here!!
+</div>
+<h2>결과</h2>
+<div id="result"></div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+$('#input').click(function(){
+	$('#result').html("Click Event");
+});
+$('#input').dblclick(function(){
+	$('#result').html("Double Click Event");
+	
+});
+</script>
+</body>
+</html>

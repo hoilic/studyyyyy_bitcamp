@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/scroll.css">
+</head>
+<body>
+<div class="gradientStyle">
+	<h1>스크롤 이벤트</h1>
+	<div id="console">없지롱~~</div>
+</div>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+$(function(){
+	$(window).scroll(function(){
+		$("#console").html("스크롤이 이동되었습니다.");
+		
+		setTimeout(function(){
+			$('#console').html(""); //3초 뒤에 #console 초기화
+		}, 3000);
+	});
+});
+</script>
+</body>
+</html>
