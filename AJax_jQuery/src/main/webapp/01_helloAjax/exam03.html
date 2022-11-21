@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../css/reset.css">
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+</head>
+<body>
+<h1 class="title">동적 드롭다운</h1>
+<div class="exec">
+	<form>
+		<!-- 각 단계별 dropdown을 표시할 span 태그 -->
+		<span id="category1" style="border : 1px solid red;"></span>
+		<span id="category2" style="border : 1px solid green;"></span>
+		<span id="category3" style="border : 1px solid blue;"></span>
+	</form>
+</div>
+
+<div class="console"></div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	//1 depth
+	$("#category1").load("../text/category-data.html #category1-1", function(){
+		$(this).show();
+	});
+	
+	//2 depth
+	$(document).on("change", "#category1 > select", function(){
+		$("#category2").empty().hide();
+		$("#category3").empty().hide();
+		
+		var target = $(this).find("option:selected").attr("data-target");
+		//console.log(target);
+		
+		var selector = "../text/category-data.html " + target;
+		$("#category2").load(selector, function(){
+			$(this).show();
+		});
+	});
+	
+	//3 depth
+	$(document).on("change", "#category2 > select", function(){
+		$("#category3").empty().hide();
+	
+		var target = $(this).find("option:selected").attr("data-target");
+		//console.log(target);
+	
+		var selector = "../text/category-data.html " + target;
+		$("#category3").load(selector, function(){
+			$(this).show();
+		});
+	});
+	
+	//마지막 선택
+	$(document).on("change", "#category3 > select", function(){
+		if($(this).find("option:selected").index()>0){
+			var data1 = $("#category1 > select > option:selected").val();
+			var data2 = $("#category2 > select").find("option:selected").val();
+			//var data3 = $("#category3 > select").find("option:selected").val();
+			var data3 = $(this).find("option:selected").val();
+			
+			$(".console").html(data1 + " &gt; " + data2 + " &gt; " + data3);
+		}
+	});
+});
+</script>
+</body>
+</html>
+
+
+<!-- 
+* load()
+읽어오고자 하는 대상의 내용이 단순한 text나 html 태그를 표현하며 
+읽어온 내용을 특정 요소에 출력하는 것만을 목적으로 할 경우 load() 함수를 사용해 코드를 축약할 수 있다.
+
+$("CSS셀렉터").load(
+   "읽어올 대상의 URL" 
+   [, function() { ...읽기에 성공한 후 실행될 함수...}]   
+);
+
+예) "readme.html" 파일의 전체 내용 중에서 "#my"라는 id값을 갖는 요소만을 읽어올 경우
+$(“출력할 대상의 셀렉터”).load("readme.html #my");
+ -->

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"  href="../css/common.css" >
+<link rel="stylesheet"  href="../css/reset.css" >
+<title>exam03</title>
+</head>
+<body>
+<h1 class="title">아이디 중복검사</h1>
+<div class="exec">
+	<form>
+		<input type="text" name="user_id" />
+		<input type="button" id="checkId" value="중복검사" />
+	</form>
+</div>
+<div class="console"></div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+$(function(){
+	$('#checkId').click(function(){		
+		var user_id = $('input[name="user_id"]').val();
+		if(!user_id){
+			alert("아이디를 입력하세요.");
+			$('input[name="user_id"]').focus();
+			return false;
+		}
+		var url = "../checkId/checkId.jsp";
+		$.get(url,
+				{'user_id': user_id},
+				function(data){
+					//true(사용 불가능), false(사용 가능))
+					var result_text = $(data).find('result').text();
+		
+					//문자열 -> boolean 변환
+					//var result = eval("25+36") //eval() 은 입력값을 수식으로 인식해서 계산해준다.
+					var result = eval(result_text) //eval() 은 입력값을 수식으로 인식해서 계산해준다.
+					if(result)
+						$('.console').html('<span style="color: red;">  사용할 수 없는 아이디 입니다.</span>');
+					else
+						$('.console').html('<span style="color: blue;">  사용할 수 있는 아이디 입니다.</span>');
+			});
+		});
+	
+	});
+</script>
+</body>
+</html>
+
+<!-- 
+(1) $.ajax()
+   $.ajax({
+      url: "XML파일의 URL",
+      type: "get / post",
+      data: "파라미터 문자열 key=value&key=value",
+      dataType: "xml",
+      success: function(data) {
+         ... 통신이 성공한 경우 실행되는 함수 ...
+      }      
+   });
+   
+(2) $.get() / $.post()
+   $.get("url", {파라미터 json}, function(data) {
+         ... XML 데이터의 처리 ...
+      }, ["xml"]);
+
+예) 
+var ajax = $.get("url", {파라미터 json}, function(data) {...XML 데이터의 처리...}, ["xml"]);
+
+(3) ajax.fail() / ajax.always()
+ajax.fail(function() {
+   // 404, 500 에러 등이 발생한 경우 실행될 내용
+});
+
+ajax.always(function() {
+   // 통신 성공, 실패 여부에 상관없이 무조건 마지막에 호출됨
+});
+ -->

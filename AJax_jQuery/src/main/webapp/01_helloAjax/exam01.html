@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"  href="../css/common.css" >
+<link rel="stylesheet"  href="../css/reset.css" >
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1 class="title">$.ajax()함수를 사용한 텍스트 읽기</h1>
+<div class="exec">
+	<input type="button" value="txt파일 가져오기" id="mybtn" />
+</div>
+<div class="console" id="result" ></div>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+$(function(){
+	$('#mybtn').click(function(){
+		$.ajax({
+			type: 'get',
+			url: '/AJax_jQuery/text/text01.txt',
+			dataType: 'text',
+			timeout: 30000,
+			cache: false,
+			success: function(data){
+					$('#result').html(data);
+			},
+			error: function(xhr, textStatus, errorThrown){
+				$('div').html('<div>' + textStatus + '(HTTP-' + xhr.status + '/' + errorThrown + ')' + '</div>');	
+			}		
+		});
+	});
+});
+</script>
+
+</body>
+</html>
