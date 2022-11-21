@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table border="1">
+	<tr>
+		<td>1번</td>
+		<td>2번</td>
+		<td>3번</td>
+	</tr>
+	<tr>
+		<td>4번</td>
+		<td>5번</td>
+		<td>6번</td>
+	</tr>
+	<tr>
+		<td>7번</td>
+		<td>8번</td>
+		<td>9번</td>
+	</tr>
+</table>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+$(function(){
+	//$('td:eq(4)').css('background', '#ff0000'); //js 문법
+	$('td').eq(4).css('background', '#ff0000'); //DOM 문법
+	
+	$('td:eq(4)').next().css('background', '#00ff00'); //6번
+	$('td:eq(4)').prev().css('background', '#0000ff'); //4번
+	
+	$('td:eq(4)').parent().css('color', '#ffffff'); //td 의 부모
+	$('td:eq(4)').parent().next().css('color', '#ff0000'); //아랫줄 글씨 (아래 부모)
+	$('td:eq(4)').parent().prev().css('color', '#0000ff'); //윗줄 글씨(윗 부모)
+	
+	$('td:eq(4)').parent().next().children().css('text-decoration', 'underline'); //아랫줄 글씨 (아래 부모)
+	$('td:eq(4)').parent().next().children().eq(1).css('font-weight', 'bold'); //8번 글씨 굵게
+	
+	
+	
+	
+	
+});
+</script>
+</body>
+</html>

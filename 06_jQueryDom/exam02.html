@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+div{
+	width: 400px;
+	height: 300px;
+	padding-top: 20px;
+	background-size: 100% 100%;
+}
+
+ul{
+	padding : 10px 20px;
+	background-color: rgba(255, 255, 255, 0.6) /*rgba 에서 a 는 투명도  */
+	/* background-color: rgb(255, 255, 255) 요렇게 하면 하얀색으로 나옴 */
+}
+</style>
+</head>
+<body>
+<div>
+	<ul id="menu">
+		<li class="item">
+			<a href="#">../img/1.png</a>
+		</li>
+		<li class="item">
+			<a href="#">../img/2.png</a>
+		</li>
+		<li class="item">
+			<a href="#">../img/3.png</a>
+		</li>
+	</ul>
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+$(function(){
+	$('.item > a').click(function(){
+		var index = $(this).parent().index();
+		console.log('index = ' + index);
+		
+		var image =['../img/1.png', '../img/2.png', '../img/3.png']
+		
+		$(this).parents('div').css({ //parents ?
+			'background-image': 'url(' + image[index]+ ')'
+		});
+	});
+	
+});
+</script>
+
+
+</body>
+</html>

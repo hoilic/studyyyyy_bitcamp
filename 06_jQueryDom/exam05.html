@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<input type="button" value="추가" />
+<input type="button" value="삭제" />
+
+<!-- 동적 요소 -->
+<ul>
+</ul>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+$(function(){
+	var i=1;
+	
+	$('input:eq(0)').click(function(){//추가버튼
+		var li1 = $('<li>').css('color', 'red').html('추가항목' + (i++));
+					
+		var li2 = $('<li>').css('color', 'green').html('추가항목' + (i++));
+				
+		var li3 = $('<li>').css('color', 'blue').html('추가항목' + (i++));
+		
+		li1.click(function(){
+			$(this).remove();
+		});
+		li2.click(function(){
+			$(this).remove();
+		});
+		li3.click(function(){
+			$(this).remove();
+		});
+		
+		li1.appendTo($('ul'));
+		$('ul').append(li2);
+		$('ul').append(li3);
+	});
+	
+	$('input:eq(1)').click(function(){//삭제버튼
+		$('ul').empty();
+	});
+});
+</script>
+
+</body>
+</html>
+
+<!-- 
+A.append(B) -- A에 B를 추가하다.
+B.appendTO(A) -- B를 A에 추가하다. 
+-->
