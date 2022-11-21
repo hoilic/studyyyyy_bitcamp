@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.btn{
+	background-color : cyan
+}
+</style>
+</head>
+<body>
+<h1>show/hide</h1>
+<div id="sh">
+	<input type="button" class="btn" value="보이기"/>
+	<input type="button"  value="숨기기"/>
+	<input type="button" value="토글"/>
+	<div>
+		<img src="../img/7.gif" width="500px" height="300px" />
+	</div>
+	
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+$(function(){
+	$('#sh > input:eq(0)').click(function(){
+		$('#sh div').show(200);
+	});
+	$('#sh > input:eq(1)').click(function(){
+		$('#sh div').hide(200);
+	});
+	$('#sh > input:eq(2)').click(function(){
+		$('#sh div').toggle(200);
+	});
+	
+	//답
+	$('#sh > input').click(function(){
+		//클릭한 버튼을 제외한 모든 버튼에서 class를 제거
+		$('#sh > input').not(this).removeClass('btn');
+		
+		//클릭한 버튼에서 class를 부여
+		$(this).addClass('btn');
+	});
+	
+});
+
+</script>
+</body>
+</html>
+<!-- 
+[문제] 클릭할 때마다 버튼의 색깔을 cyan으로 바꾸고 나머지는 원래의 색으로 바뀌게 하시오 
+-->

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<button id="btn1">slideUp</button>
+<button id="btn2">slideDown</button>&nbsp;&nbsp;&nbsp;
+
+<button id="btn3">fadeIn</button>
+<button id="btn4">fadeOut</button>&nbsp;&nbsp;&nbsp;
+
+<button id="btn5">slide toggle</button>
+<button id="btn6">toggle</button>&nbsp;&nbsp;&nbsp;
+
+<p>이미지</p>
+<img src="../img/2.png" width="500px" height="300px">
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.1.min.js"></script><!-- CDN 방식 -->
+<script type="text/javascript">
+$(function(){
+	$('#btn1').click(function(){
+		$('img').slideUp(1000); //단위 1조 1/1000초
+	});
+	$('#btn2').click(function(){
+		$('img').slideDown(1000); //단위 1조 1/1000초
+	});
+	$('#btn3').bind('click',function(){
+		$('img').fadeIn(1000); //이미지가 천천히 나타난다.
+	});
+	$('#btn4').bind('click',function(){
+		$('img').fadeOut(1000); //이미지가 천천히 사라진다.
+	});
+	$('#btn5').bind('click',function(){
+		$('img').slideToggle(1000); //slideUp, slideDown 을 번갈아 움직임
+	});
+	$('#btn6').bind('click',function(){
+		$('img').toggle(1000); //slideUp, slideDown 을 번갈아 움직임(왼쪽상단)
+	});
+
+});
+</script>
+</body>
+</html>
+<!-- 
+slideUp(), slideDown(), slideToggle()은 반드시 <img> 태그에 width, height 속성을 주어야 한다
+그렇지 않으면 toggle()와 똑같은 동작을 한다
+
+slideUp(speed) : speed값을 지정해서 슬라이드업 효과를 줄 수 있다
+speed : "slow" or "fast" or milliseconds(1/1000초)
+ -->
+ 
